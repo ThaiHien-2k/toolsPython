@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+</head>
+
+<body>
+    <h1>Data Note</h1>
+    <button id="backButton" type="button">Back</button>
+    <br>
+    <br>
+    <div style="display: flex; justify-content: space-between;">
+        <div style="margin-left: 20px; margin-top: 5px; padding-left: 2px;">
+            <form id="postDataForm" action="/write-note/write" method="post">
+                <label for="note">Note:</label><br>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <input type="number" id="note" name="note" value="{{ note }}">
+                    {% if error_message and error_message == "Note are required fields." %}
+                    <p style="color: red; padding: unset; margin:unset;">{{ error_message }}</p>
+                    {% else %}
+                    <p style="visibility: hidden; padding: unset; margin:unset;">{{ error_message }}</p>
+                    {% endif %}
+                </div>
+                <br>
+                <label for="no">Number task:</label><br>
+                <input type="number" id="no" name="no" value={{ no }}><br>
+                <br>
+                <label for="name">Name:</label><br>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <input type="text" id="name" name="name" value={{ name }}>
+                    {% if error_message and error_message == "Name are required fields." %}
+                    <p style="color: red; padding: unset; margin:unset;">{{ error_message }}</p>
+                    {% else %}
+                    <p style="visibility: hidden; padding: unset; margin:unset;">{{ error_message }}</p>
+                    {% endif %}
+                </div>
+                <br>
+                <label for="fd">FD:</label><br>
+                <textarea id="fd" name="fd" rows="5" cols="50">{{ fd }}</textarea><br>
+                <br>
+                <label for="ud">UD:</label><br>
+                <textarea id="ud" name="ud" rows="5" cols="50">{{ ud }}</textarea><br>
+                <br>
+
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <div>
+            <label style="margin-left: 20px; margin-top: 5px; padding-left: 2px;" for="result">Today data:</label><br>
+            <pre id="resultContent"
+                style="white-space: pre-wrap; padding-right: 5px;"><textarea id="csv_content" name="csv_content" rows="15" cols="100" readonly>{{ csv_content or '' }}</textarea></pre>
+        </div>
+    </div>
+
+
+    <script>
+        document.getElementById("note").addEventListener("input", function () {
+            if (this.value.length > 5) {
+                this.value = this.value.slice(0, 5);
+            }
+        });
+    </script>
+    <script>
+        document.getElementById("backButton").addEventListener("click", function () {
+            window.location.href = "/";
+        });
+    </script>
+</body>
+
+</html>

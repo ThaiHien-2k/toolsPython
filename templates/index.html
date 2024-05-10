@@ -20,10 +20,12 @@
     <form id="toolForm" method="post">
         <label for="tool_name">Tool Name:</label>
         <select id="tool_name" name="tool_name">
+            <option value="home" {% if selected_tool=='home' %}selected{% endif %}></option>
             <option value="format.py" {% if selected_tool=='format.py' %}selected{% endif %}>Tool Create SQL</option>
             <option value="index.py" {% if selected_tool=='index.py' %}selected{% endif %}>Tool Redmine</option>
         </select>
         <button id="runButton" type="button">Run</button>
+        <button id="wnButton" type="button">Tool Write Notes</button>
         <button id="copyButton" type="button">Copy to Clipboard</button>
         <button id="clearButton" type="button">Clear</button>
     </form>
@@ -48,17 +50,21 @@
             document.getElementById("csv_data").value = '';
         });
     </script>
+
+    <script>
+        document.getElementById("wnButton").addEventListener("click", function () {
+            window.location.href = "/write-note";
+        });
+    </script>
     <script>
         document.getElementById("copyButton").addEventListener("click", function () {
             var csvContent = document.getElementById("csv_content").value;
             navigator.clipboard.writeText(csvContent)
                 .then(function () {
                     console.log('CSV content copied to clipboard successfully!');
-
                 })
                 .catch(function (error) {
                     console.error("Error copying CSV content to clipboard: ", error);
-
                 });
         });
     </script>
@@ -69,22 +75,28 @@
             if (toolName === "format.py") {
                 document.getElementById("csvForm").action = "/write-csv/format";
             } else if (toolName === "index.py") {
-                document.getElementById("csvForm").action = "/write-csv/index";
+                document.getElementById("csvForm").action = "/write-csv-i/index";
+            }
+            else if (toolName === "home") {
+                document.getElementById("csvForm").action = "/"
             }
             document.getElementById("csvForm").submit();
         });
     </script>
+
     <script>
         document.getElementById("runButton").addEventListener("click", function () {
             var toolName = document.getElementById("tool_name").value;
             if (toolName === "format.py") {
                 document.getElementById("csvForm").action = "/write-csv/format";
             } else if (toolName === "index.py") {
-                document.getElementById("csvForm").action = "/write-csv/index";
+                document.getElementById("csvForm").action = "/write-csv-i/index";
             }
             document.getElementById("csvForm").submit();
         });
     </script>
+
+
 </body>
 
 </html>
