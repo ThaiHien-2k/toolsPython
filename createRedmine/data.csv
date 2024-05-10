@@ -1,1 +1,8 @@
-a
+- 1 fd
+dp_nim059_fd470	    dp_nim059_受注残実績受信処理バッチi
+- 1 ud lấy data SCXW5P
+dp_nim059_udc35	dp_nim059_REXUS受注実績全件取得i
+- 1 ud delete SCXJDP
+dp_nim059_udc36	dp_nim059_REXUS受注実績累積削除（完納FG）i
+- 1 ud insert SCXJDP
+dp_nim059_udc37	dp_nim059_REXUS受注実績累積登録i
